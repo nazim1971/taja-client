@@ -9,7 +9,7 @@ import {
   
   const Hero = () => {
     const images = [
-      "https://res.cloudinary.com/dfvgxf4dc/image/upload/v1738599111/pytkaypz223zdhp7b62a.avif",
+      "https://ghorerbazar.com/cdn/shop/files/Web_Banner_Crystal_Honey.png?v=1736946452&width=1500",
       "https://res.cloudinary.com/dfvgxf4dc/image/upload/v1738599041/foafvixt90gqfqzwf1gw.webp",
       "https://res.cloudinary.com/dfvgxf4dc/image/upload/v1738599200/b5frlcoxq6tuadpepvmo.png",
       "https://res.cloudinary.com/dfvgxf4dc/image/upload/v1738599156/rt5a9vu6lsewdfphyzvi.avif",
