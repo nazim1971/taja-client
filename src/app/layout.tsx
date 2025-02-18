@@ -22,10 +22,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={openSans.className}
+        className={ `${openSans.className} max-w-[1200px] mx-auto` }
       >
+        <div className="relative">
         <Navbar/>
+        <div className="pt-[160px]">
         {children}
+        </div>
+        </div>
       </body>
     </html>
   );

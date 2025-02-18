@@ -1,74 +1,118 @@
-import Image from "next/image";
-import { MdOutlinePhoneInTalk } from "react-icons/md";
-import { Input } from "../ui/input";
-import { FaRegBell } from "react-icons/fa";
-import { BsCart2 } from "react-icons/bs";
-import { FiUser } from "react-icons/fi";
-import { BiSearch } from "react-icons/bi";
-import { RiMenu2Fill } from "react-icons/ri";
-import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@radix-ui/react-navigation-menu";
+"use client";
 
+import { useState, useEffect } from "react";
+
+import Link from "next/link";
+
+import { Input } from "../ui/input";
+import Image from "next/image";
+import { ShoppingCart } from "lucide-react";
+import { FiMenu } from "react-icons/fi";
+import Sidebar from "./Sidebar";
 
 const Navbar = () => {
-    return (
-        <>
-       <div className="hidden lg:block">
-       <div className="py-2 flex items-center justify-between px-10 max-w-[1200px] mx-auto">
-            <div className="flex items-center gap-2">
-            <MdOutlinePhoneInTalk />
-            <p>We are available 24/7, Need help?</p>
-            <span className="text-red-500">01815533583</span>
-            </div>
-            <div className="flex">
-                <p className="px-2 border-black border-r-2">About Us</p>
-                <p className="px-2 border-black border-r-2">Contact Us</p>
-                <p className="px-2 border-black border-r-2">My Account</p>
-                <p className="px-2 ">Login</p>
-            </div>
-        </div>
-       </div>
+  const [showNavbar, setShowNavbar] = useState(true); // Initially visible
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+  const [isAtTop, setIsAtTop] = useState(true); 
 
-        <div className="bg-[#3E7B27] md:sticky top-0 fixed w-full z-50">
-        <div className="p-4 flex items-center justify-between md:px-10 max-w-[1200px] mx-auto ">
-            <Image width={60} height={60} className="rounded-full hidden md:block " src={'https://res.cloudinary.com/dfvgxf4dc/image/upload/v1739101285/455247063_122106278150462526_1208095306293753335_n_pvs3ka.jpg'} alt="Website Logo" />
-            <div className="md:w-[70%] w-full relative">
-            <Input  className="bg-white text-black " placeholder="Search for products (e.g fish, apple, oli"/>
-            <BiSearch className="absolute right-2 top-3"/>
-            </div>
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
 
-            <div className=" gap-2 text-white font-semibold hidden md:flex">
-            <FaRegBell />
-            <BsCart2  />
-            <FiUser />
-            </div>
+      if (currentScrollY === 0) {
+        setIsAtTop(true); // User is at the top, larger image size
+      } else {
+        setIsAtTop(false); // User scrolled down, smaller image size
+      }
+
+      if (currentScrollY > lastScrollY) {
+        setShowNavbar(false); // Hide navbar on scroll down
+      } else {
+        setShowNavbar(true); // Show navbar on scroll up
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
+
+  const whatsappNumber = "+8801815533583";
+  const whatsappLink = `https://wa.me/${whatsappNumber}`;
+
+  return (
+    <div>
+       <Sidebar isOpen={isSidebarOpen} closeSidebar={() => setIsSidebarOpen(false)} />
+      {/* Navbar Container */}
+      <div
+        className={`fixed max-w-[1200px] mx-auto top-0 left-0 right-0 z-50 transition-transform duration-300 ease-in-out ${
+          showNavbar ? "translate-y-0" : "-translate-y-full"
+        }`}
+      >
+        <div className="bg-TPrimary text-center text-white py-2">
+          <p>
+            আমাদের যে কোন পণ্য অর্ডার করতে কল বা WhatsApp করুন:{" "}
+            <Link target="blank" href={whatsappLink} className="underline">
+              +8801815533583
+            </Link>
+          </p>
         </div>
+        <div className="grid grid-cols-3 p-3 bg-white dark:bg-gray-900 shadow-lg border-b border-gray-300 dark:border-gray-700  gap-5">
+          <div className="flex justify-start items-center">
+            <Input className="max-w-[300px] hidden lg:block" />
+            <button
+              onClick={toggleSidebar}
+              className="text-2xl text-gray-500 dark:text-teal-400 hover:text-teal-700 transition lg:hidden"
+            >
+              <FiMenu />
+            </button>
+          </div>
+
+          <div className="flex justify-center items-center ">
+            <Image
+             height={isAtTop ? 80 : 60} 
+              width={isAtTop ? 80 : 60} 
+              className="rounded-full transition-all duration-300"
+              src={
+                "https://res.cloudinary.com/dfvgxf4dc/image/upload/v1739101285/455247063_122106278150462526_1208095306293753335_n_pvs3ka.jpg"
+              }
+              alt="website logo"
+            />
+          </div>
+
+          <div className=" flex justify-end items-center">
+            <ShoppingCart /> {/* Third column: Shopping Cart */}
+          </div>
         </div>
 
-        {/* Bottom bar for small device */}
-        <div className="bg-[#3E7B27] fixed bottom-0 w-full md:hidden block">
-            <div className=" text-white font-semibold md:hidden flex justify-between p-4 text-2xl">
-            <RiMenu2Fill />
-            <FaRegBell />
-            <BsCart2  />
-            <FiUser />
-            </div>
-        </div>
+        {/* Category */}
+        <div className="p-3 lg:flex justify-center flex-wrap lg:gap-10  bg-gray-100 hidden ">
+  <p className="relative pb-1 before:content-[''] before:absolute before:left-0 before:bottom-0 before:w-0 before:h-[2px] before:bg-black before:transition-all before:duration-300 hover:before:w-full">
+    OFFER
+  </p>
+  <p className="relative pb-1 before:content-[''] before:absolute before:left-0 before:bottom-0 before:w-0 before:h-[2px] before:bg-black before:transition-all before:duration-300 hover:before:w-full">
+    Ramadan Corner
+  </p>
+  <p className="relative pb-1 before:content-[''] before:absolute before:left-0 before:bottom-0 before:w-0 before:h-[2px] before:bg-black before:transition-all before:duration-300 hover:before:w-full">
+    Mustard Oil
+  </p>
+  <p className="relative pb-1 before:content-[''] before:absolute before:left-0 before:bottom-0 before:w-0 before:h-[2px] before:bg-black before:transition-all before:duration-300 hover:before:w-full">
+    Ghee (ঘি)
+  </p>
+  <p className="relative pb-1 before:content-[''] before:absolute before:left-0 before:bottom-0 before:w-0 before:h-[2px] before:bg-black before:transition-all before:duration-300 hover:before:w-full">
+    খেজুর গুড়
+  </p>
+  <p className="relative pb-1 before:content-[''] before:absolute before:left-0 before:bottom-0 before:w-0 before:h-[2px] before:bg-black before:transition-all before:duration-300 hover:before:w-full">
+    Masala
+  </p>
+</div>
 
-        <div className="">
-        <NavigationMenu>
-  <NavigationMenuList>
-    <NavigationMenuItem>
-      <NavigationMenuTrigger>Item One</NavigationMenuTrigger>
-      <NavigationMenuContent>
-        <NavigationMenuLink>Link</NavigationMenuLink>
-      </NavigationMenuContent>
-    </NavigationMenuItem>
-  </NavigationMenuList>
-</NavigationMenu>
-
-        </div>
-        </>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Navbar;
