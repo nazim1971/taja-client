@@ -1,6 +1,5 @@
 "use client"
 import { FiX } from "react-icons/fi";
-import Link from "next/link";
 
 type SidebarProps = {
   isOpen: boolean;
