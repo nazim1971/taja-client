@@ -52,7 +52,7 @@ const Navbar = () => {
           showNavbar ? "translate-y-0" : "-translate-y-full"
         }`}
       >
-        <div className="bg-TPrimary text-center text-white py-2">
+        <div className="bg-TPrimary text-center text-white p-2">
           <p>
             আমাদের যে কোন পণ্য অর্ডার করতে কল বা WhatsApp করুন:{" "}
             <Link target="blank" href={whatsappLink} className="underline">
