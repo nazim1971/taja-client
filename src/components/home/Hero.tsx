@@ -9,11 +9,9 @@ import {
   
   const Hero = () => {
     const images = [
-      "https://ghorerbazar.com/cdn/shop/files/Web_Banner_Crystal_Honey.png?v=1736946452&width=1500",
-      "https://res.cloudinary.com/dfvgxf4dc/image/upload/v1738599041/foafvixt90gqfqzwf1gw.webp",
-      "https://res.cloudinary.com/dfvgxf4dc/image/upload/v1738599200/b5frlcoxq6tuadpepvmo.png",
-      "https://res.cloudinary.com/dfvgxf4dc/image/upload/v1738599156/rt5a9vu6lsewdfphyzvi.avif",
-      "https://res.cloudinary.com/dfvgxf4dc/image/upload/v1738606127/dpwklji14tro6xwc4ubo.jpg",
+      "https://res.cloudinary.com/dfvgxf4dc/image/upload/v1740417077/cover_photo_anwgjx.jpg",
+      "https://res.cloudinary.com/dfvgxf4dc/image/upload/v1740417073/476643199_122137339370462526_8275283035389187208_n_dxefhw.jpg",
+      "https://res.cloudinary.com/dfvgxf4dc/image/upload/v1740417133/mustrad_oil_txlo0e.jpg"
     ];
   
     return (
